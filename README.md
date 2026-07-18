@@ -79,6 +79,14 @@ The repository includes `.github/workflows/deploy.yml`. After pushing to GitHub:
 5. Push to `main`.
 6. The workflow builds and publishes `dist`.
 
+There is also a local helper for the first push:
+
+```powershell
+.\scripts\publish-github.ps1 -Token "TEMPORARY_GITHUB_TOKEN" -RepoName "village-gallery-kapoorpur"
+```
+
+Use a temporary GitHub token with `repo` and `workflow` access, then revoke it after publishing.
+
 ## Android app path
 
 This is the best first step because it is a PWA. Villagers can open it in Chrome and use "Add to Home screen". If later publishing to Play Store as a native Android app, use AdMob for ads instead of AdSense.
