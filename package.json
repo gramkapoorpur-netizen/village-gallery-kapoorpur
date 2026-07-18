@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.9.0",
-  "description": "Hindi-first PWA gallery for Kapoorpur village memories, admin uploads, and AdSense-ready monetization.",
+  "description": "Hindi-first PWA gallery and community app for Kapoorpur village memories, admin uploads, and local sharing.",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",

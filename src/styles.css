@@ -153,7 +153,6 @@ h3 {
 .hero p,
 .section-heading p,
 .setup-card p,
-.monetization-panel p,
 .about-copy p,
 .legal-page p {
   color: var(--muted);
@@ -268,8 +267,7 @@ h3 {
 .form-panel,
 .about-page,
 .admin-shell,
-.legal-page,
-.monetization-panel {
+.legal-page {
   padding: 28px 0;
 }
 
@@ -1020,34 +1018,10 @@ h3 {
 }
 
 .meta-row span,
-.detail-meta span,
-.earning-list span {
+.detail-meta span {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-}
-
-.ad-slot {
-  min-height: 96px;
-  margin: 20px 0;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.ad-slot-empty {
-  display: grid;
-  place-items: center;
-  border: 1px dashed rgba(24, 74, 69, 0.32);
-  background:
-    linear-gradient(135deg, rgba(52, 125, 160, 0.12), transparent),
-    rgba(255, 253, 248, 0.74);
-  color: var(--muted);
-  text-align: center;
-  padding: 16px;
-}
-
-.ad-slot-compact {
-  min-height: 70px;
 }
 
 .category-grid {
@@ -1071,34 +1045,41 @@ h3 {
   font-size: 1.45rem;
 }
 
-.monetization-panel {
+.guide-section {
+  padding: 28px 0;
+}
+
+.guide-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  align-items: center;
-  background: #173f3c;
-  color: #fffdf8;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.guide-card {
+  min-height: 190px;
+  background:
+    linear-gradient(135deg, rgba(229, 169, 47, 0.12), transparent 58%),
+    rgba(255, 253, 248, 0.84);
+  border: 1px solid rgba(24, 74, 69, 0.14);
   border-radius: 8px;
-  padding: 22px;
-  margin: 10px 0 28px;
+  padding: 18px;
+  box-shadow: 0 12px 30px rgba(24, 74, 69, 0.07);
 }
 
-.monetization-panel h2,
-.monetization-panel .eyebrow,
-.monetization-panel p {
-  color: #fffdf8;
+.guide-card h3 {
+  color: var(--green);
+  font-size: 1.18rem;
+  margin-bottom: 9px;
 }
 
-.earning-list {
-  display: grid;
-  gap: 10px;
+.guide-card p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
 }
 
-.earning-list span {
-  background: rgba(255, 255, 255, 0.11);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 8px;
-  padding: 12px;
+.about-guide-grid {
+  margin-top: 18px;
 }
 
 .search-panel {
@@ -1472,7 +1453,6 @@ textarea {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .monetization-panel,
   .about-grid,
   .detail-modal,
   .circle-hero,

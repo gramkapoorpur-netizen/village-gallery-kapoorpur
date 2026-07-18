@@ -1,6 +1,6 @@
 # Village Gallery Kapoorpur
 
-Hindi-first PWA website for Kapoorpur village memories, photo/video gallery, admin Gmail login, public submissions, and AdSense-ready monetization.
+Hindi-first PWA website for Kapoorpur village memories, photo/video gallery, admin Gmail login, public submissions, and community sharing.
 
 ## What is included
 
@@ -13,7 +13,7 @@ Hindi-first PWA website for Kapoorpur village memories, photo/video gallery, adm
 - Firebase Google/Gmail admin login.
 - Firestore gallery records and Firebase Storage media upload hooks.
 - Public submissions for admin approval.
-- AdSense script support, ad-safe placement, cookie consent, Analytics hook, and policy pages.
+- Cookie consent, Analytics hook, privacy pages, and community-safe content controls.
 - GitHub Pages workflow.
 - Firebase Firestore and Storage rules.
 
@@ -43,23 +43,6 @@ The app also works without Firebase keys by showing sample Kapoorpur content and
 7. In `storage.rules`, confirm the admin Gmail is `singhmanoj2704@gmail.com`.
 8. Publish those rules in Firebase console.
 
-## AdSense setup
-
-1. Publish the site first.
-2. Replace placeholder contact/domain values.
-3. Add 20-30 real, original Kapoorpur posts before applying.
-4. Apply for Google AdSense.
-5. After approval, add:
-
-```bash
-VITE_ADSENSE_CLIENT_ID=ca-pub-xxxxxxxxxxxxxxxx
-VITE_ADSENSE_SLOT_ID=xxxxxxxxxx
-```
-
-6. Replace `public/ads.txt` with the exact line Google provides.
-
-Never click your own ads and never ask visitors to click ads.
-
 ## Google Analytics
 
 Add this to `.env`:
@@ -77,7 +60,7 @@ The repository includes `.github/workflows/deploy.yml`. After pushing to GitHub:
 1. Open repository Settings.
 2. Go to Pages.
 3. Select GitHub Actions as the source.
-4. Add repository secrets for Firebase, admin Gmail, AdSense, and Analytics when ready.
+4. Add repository secrets for Firebase, admin Gmail, and Analytics when ready.
 5. Push to `main`.
 6. The workflow builds and publishes `dist`.
 
@@ -91,4 +74,4 @@ Use a temporary GitHub token with `repo` and `workflow` access, then revoke it a
 
 ## Android app path
 
-This is the best first step because it is a PWA. Villagers can open it in Chrome and use "Add to Home screen". If later publishing to Play Store as a native Android app, use AdMob for ads instead of AdSense.
+This is the best first step because it is a PWA. Villagers can open it in Chrome and use "Add to Home screen". If later publishing to Play Store as a native Android app, wrap the same community features in a native shell.

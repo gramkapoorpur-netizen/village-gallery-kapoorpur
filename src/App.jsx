@@ -1,15 +1,11 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import {
-  BarChart3,
   Cookie,
-  ExternalLink,
   Languages,
-  Megaphone,
   Search,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import AdSlot from "./components/AdSlot";
 import BottomNav from "./components/BottomNav";
 import CinematicMemoryBook from "./components/CinematicMemoryBook";
 import GalleryGrid from "./components/GalleryGrid";
@@ -17,7 +13,7 @@ import HindiHelper from "./components/HindiHelper";
 import PolicyPage from "./components/PolicyPage";
 import SubmissionForm from "./components/SubmissionForm";
 import VillageCircle from "./components/VillageCircle";
-import { aboutKapoorpur, policyPages } from "./data/content";
+import { aboutKapoorpur, kapoorpurGuideSections, policyPages } from "./data/content";
 import { categories } from "./data/sampleGallery";
 import { fetchGalleryItems } from "./services/galleryService";
 
@@ -204,8 +200,8 @@ export default function App() {
                 <span>Android-ready</span>
               </div>
               <div>
-                <strong>AdSense</strong>
-                <span>policy pages ready</span>
+                <strong>Circle</strong>
+                <span>village social feed</span>
               </div>
             </section>
 
@@ -220,8 +216,6 @@ export default function App() {
               </div>
               <GalleryGrid items={featuredItems} selectedItem={selectedItem} onSelect={setSelectedItem} onSpeak={speak} lang={lang} />
             </section>
-
-            <AdSlot />
 
             <section className="content-section category-section">
               <div className="section-heading">
@@ -245,25 +239,19 @@ export default function App() {
               </div>
             </section>
 
-            <section className="monetization-panel">
-              <div>
-                <span className="eyebrow">Earning Setup</span>
-                <h2>AdSense और useful links ready</h2>
-                <p>Public pages, cookie consent, analytics hook और mobile-safe ad spaces बना दिए गए हैं।</p>
+            <section className="guide-section" aria-labelledby="guide-title">
+              <div className="section-heading compact-heading">
+                <span className="eyebrow">Kapoorpur Guide</span>
+                <h2 id="guide-title">गांव की जानकारी</h2>
+                <p>कपूरपुर की यादें, खेती, स्कूल, संस्कृति और मदद की बातें एक जगह।</p>
               </div>
-              <div className="earning-list">
-                <span>
-                  <Megaphone size={17} />
-                  Ads buttons से दूर रखे गए हैं
-                </span>
-                <span>
-                  <BarChart3 size={17} />
-                  Google Analytics env ready
-                </span>
-                <span>
-                  <ExternalLink size={17} />
-                  Sponsored links clearly labeled
-                </span>
+              <div className="guide-grid">
+                {kapoorpurGuideSections.slice(0, 4).map((section) => (
+                  <article key={section.title} className="guide-card">
+                    <h3>{section.title}</h3>
+                    <p>{section.body}</p>
+                  </article>
+                ))}
               </div>
             </section>
           </>
@@ -300,7 +288,6 @@ export default function App() {
                 </button>
               ))}
             </div>
-            <AdSlot compact />
             <GalleryGrid
               items={view === "memories" ? memoryItems.filter((item) => !search || containsText(item, search)) : filteredItems}
               selectedItem={selectedItem}
@@ -342,7 +329,14 @@ export default function App() {
                 ))}
               </div>
             </div>
-            <AdSlot />
+            <div className="guide-grid about-guide-grid">
+              {kapoorpurGuideSections.map((section) => (
+                <article key={section.title} className="guide-card">
+                  <h3>{section.title}</h3>
+                  <p>{section.body}</p>
+                </article>
+              ))}
+            </div>
           </section>
         ) : null}
 
@@ -367,7 +361,7 @@ export default function App() {
       {!acceptedCookies ? (
         <div className="cookie-banner" role="dialog" aria-label="Cookie consent">
           <Cookie size={20} />
-          <p>AdSense/Analytics के लिए cookies इस्तेमाल हो सकती हैं। जारी रखने पर आप सहमत हैं।</p>
+          <p>भाषा पसंद, saved posts और basic site सुधार के लिए cookies/local storage इस्तेमाल हो सकती है।</p>
           <button type="button" onClick={acceptCookies}>ठीक है</button>
         </div>
       ) : null}
