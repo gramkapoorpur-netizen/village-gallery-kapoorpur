@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import {
   Cookie,
+  IdCard,
   Languages,
   Search,
   ShieldCheck,
@@ -10,7 +11,9 @@ import BottomNav from "./components/BottomNav";
 import CinematicMemoryBook from "./components/CinematicMemoryBook";
 import GalleryGrid from "./components/GalleryGrid";
 import HindiHelper from "./components/HindiHelper";
+import HindiVoiceAgent from "./components/HindiVoiceAgent";
 import PolicyPage from "./components/PolicyPage";
+import ProfileDirectory from "./components/ProfileDirectory";
 import SubmissionForm from "./components/SubmissionForm";
 import VillageCircle from "./components/VillageCircle";
 import { aboutKapoorpur, kapoorpurGuideSections, policyPages } from "./data/content";
@@ -19,7 +22,7 @@ import { fetchGalleryItems } from "./services/galleryService";
 
 const AdminPanel = lazy(() => import("./components/AdminPanel"));
 
-const safeViews = new Set(["home", "gallery", "memories", "circle", "submit", "about", "admin"]);
+const safeViews = new Set(["home", "gallery", "memories", "circle", "profiles", "submit", "about", "admin"]);
 
 function getHashView() {
   const value = window.location.hash.replace("#", "");
@@ -59,6 +62,7 @@ export default function App() {
   const [items, setItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [search, setSearch] = useState("");
+  const [profileQuery, setProfileQuery] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
   const [lang, setLang] = useState(() => (localStorage.getItem("kapoorpurLang") === "en" ? "en" : "hi"));
   const [acceptedCookies, acceptCookies] = useCookieConsent();
@@ -118,6 +122,54 @@ export default function App() {
     window.speechSynthesis.speak(utterance);
   }
 
+  function handleVoiceCommand(command) {
+    const query = String(command?.query || "").trim();
+
+    if (command.action === "submit") {
+      setView("submit");
+      return { message: "फोटो या याद भेजने वाला पेज खोल दिया।" };
+    }
+
+    if (command.action === "profiles") {
+      setProfileQuery(query);
+      setView("profiles");
+      return { message: query ? `${query} ID खोज रहा हूं।` : "प्रोफाइल ID खोजने वाला पेज खोल दिया।" };
+    }
+
+    if (command.action === "circle") {
+      setView("circle");
+      return { message: "कपूरपुर सर्कल खोल दिया। यहां गांव की बातें और पोस्ट दिखेंगी।" };
+    }
+
+    if (command.action === "memories") {
+      setSelectedCategory("memory");
+      setView("memories");
+      return { message: "यादों की किताब खोल दी। पन्ने पलटकर पुरानी यादें देखिए।" };
+    }
+
+    if (command.action === "gallery") {
+      setSelectedCategory("all");
+      setView("gallery");
+      return { message: "गांव की गैलरी खोल दी।" };
+    }
+
+    if (command.action === "admin") {
+      setView("admin");
+      return { message: "एडमिन लॉगिन पेज खोल दिया।" };
+    }
+
+    if (command.action === "about") {
+      setView("about");
+      return { message: "गांव की जानकारी खोल दी।" };
+    }
+
+    const searchQuery = query || command.spokenText || "";
+    setSearch(searchQuery);
+    setSelectedCategory("all");
+    setView("gallery");
+    return { message: searchQuery ? `${searchQuery} खोज रहा हूं।` : "गैलरी में खोज खोल दी।" };
+  }
+
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
       const categoryOk =
@@ -159,6 +211,8 @@ export default function App() {
       </header>
 
       <main>
+        {!isPolicy ? <HindiVoiceAgent onCommand={handleVoiceCommand} /> : null}
+
         {view === "home" ? (
           <>
             <section className="hero">
@@ -180,6 +234,10 @@ export default function App() {
                   </button>
                   <button className="icon-button" type="button" onClick={() => setView("circle")}>
                     {lang === "hi" ? "कपूरपुर सर्कल" : "Kapoorpur Circle"}
+                  </button>
+                  <button className="icon-button" type="button" onClick={() => setView("profiles")}>
+                    <IdCard size={18} />
+                    ID खोजें
                   </button>
                 </div>
               </div>
@@ -311,6 +369,19 @@ export default function App() {
             items={items}
             memories={memoryItems}
             onOpenMemories={() => setView("memories")}
+          />
+        ) : null}
+
+        {view === "profiles" ? (
+          <ProfileDirectory
+            key={profileQuery}
+            items={items}
+            initialQuery={profileQuery}
+            onSearchGallery={(term) => {
+              setSearch(term);
+              setSelectedCategory("all");
+              setView("gallery");
+            }}
           />
         ) : null}
 

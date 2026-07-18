@@ -1,10 +1,11 @@
-import { Home, Images, Landmark, Send, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
+import { Home, IdCard, Images, Landmark, Send, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
 
 const navItems = [
   { id: "home", label: "होम", icon: Home },
   { id: "gallery", label: "गैलरी", icon: Images },
   { id: "memories", label: "यादें", icon: Sparkles },
   { id: "circle", label: "सर्कल", icon: UsersRound },
+  { id: "profiles", label: "ID", icon: IdCard },
   { id: "submit", label: "भेजें", icon: Send },
   { id: "about", label: "गांव", icon: Landmark },
   { id: "admin", label: "एडमिन", icon: ShieldCheck },
