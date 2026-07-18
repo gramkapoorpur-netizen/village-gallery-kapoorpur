@@ -184,8 +184,8 @@ export default function AdminPanel({ onRefresh }) {
       <div className="admin-topbar">
         <div>
           <span className="eyebrow">Admin Dashboard</span>
-          <h2>Gallery manage करें</h2>
-          <p>Logged in: {user.email}</p>
+          <h2>Public gallery upload करें</h2>
+          <p>मुख्य गांव gallery में photo/video publish करने का अधिकार सिर्फ admin को है। Logged in: {user.email}</p>
         </div>
         <button className="icon-button" onClick={signOutAdmin} type="button">
           <LogOut size={18} />

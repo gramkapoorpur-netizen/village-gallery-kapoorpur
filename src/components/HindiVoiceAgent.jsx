@@ -52,19 +52,19 @@ export default function HindiVoiceAgent({ onCommand }) {
     setCommandText(rawText);
 
     let result;
-    if (text.includes("फोटो") || text.includes("photo") || text.includes("अपलोड") || text.includes("upload") || text.includes("डाल")) {
-      result = onCommand({ action: "submit", spokenText: rawText });
+    if (text.includes("एडमिन") || text.includes("admin") || text.includes("login") || text.includes("लॉगिन")) {
+      result = onCommand({ action: "admin", spokenText: rawText });
     } else if (text.includes("आईडी") || text.includes("id") || text.includes("@kp") || text.includes("प्रोफाइल") || text.includes("profile")) {
       const idQuery = extractAfter(text, ["आईडी खोजो", "id search", "id", "आईडी", "प्रोफाइल", "profile"]) || text;
       result = onCommand({ action: "profiles", query: idQuery.replace("खोजो", "").trim(), spokenText: rawText });
+    } else if (text.includes("फोटो") || text.includes("photo") || text.includes("अपलोड") || text.includes("upload") || text.includes("डाल")) {
+      result = onCommand({ action: "submit", spokenText: rawText });
     } else if (text.includes("सर्कल") || text.includes("circle") || text.includes("पोस्ट") || text.includes("गांव बात")) {
       result = onCommand({ action: "circle", spokenText: rawText });
     } else if (text.includes("याद") || text.includes("किताब") || text.includes("memory") || text.includes("book")) {
       result = onCommand({ action: "memories", spokenText: rawText });
     } else if (text.includes("गैलरी") || text.includes("gallery") || text.includes("फोटो दिख")) {
       result = onCommand({ action: "gallery", spokenText: rawText });
-    } else if (text.includes("एडमिन") || text.includes("admin") || text.includes("login") || text.includes("लॉगिन")) {
-      result = onCommand({ action: "admin", spokenText: rawText });
     } else if (text.includes("गांव") || text.includes("जानकारी") || text.includes("about")) {
       result = onCommand({ action: "about", spokenText: rawText });
     } else if (text.includes("खोज") || text.includes("search")) {

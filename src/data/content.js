@@ -4,8 +4,8 @@ export const faqItems = [
     answer: "गैलरी खोलें, पसंद की श्रेणी चुनें और किसी भी फोटो पर टैप करें। आप खोज में नाम, साल या जगह भी लिख सकते हैं।",
   },
   {
-    question: "पुरानी याद कैसे भेजें?",
-    answer: "भेजें पेज पर जाएं, फोटो या कहानी की जानकारी भरें और सबमिट करें। एडमिन मंजूरी के बाद वह गैलरी में दिखेगी।",
+    question: "अपनी प्रोफाइल और याद कैसे जोड़ें?",
+    answer: "मेरी याद पेज पर जाएं, अपना नाम, profile photo और personal memory save करें। मुख्य गैलरी में photo/video सिर्फ admin publish करेगा।",
   },
   {
     question: "एडमिन से संपर्क कैसे करें?",
@@ -13,7 +13,7 @@ export const faqItems = [
   },
   {
     question: "गांव की गैलरी में फोटो कैसे जोड़ें?",
-    answer: "एडमिन Gmail से लॉगिन करके फोटो, शीर्षक, विवरण, श्रेणी और साल जोड़ें। केवल एडमिन प्रकाशित कर सकता है।",
+    answer: "Admin Gmail से लॉगिन करके photo/video, शीर्षक, विवरण, श्रेणी और साल जोड़ें। मुख्य गैलरी में केवल admin प्रकाशित कर सकता है।",
   },
 ];
 
@@ -26,7 +26,7 @@ export const policyPages = {
       "Admin login uses Google/Firebase Authentication. The app checks the signed-in Gmail against the configured admin email before allowing uploads, edits, approvals, or deletions.",
       "Cookies or local storage may be used for language preference, saved posts, local drafts, and basic site improvement features.",
       "Analytics can be enabled to understand public traffic, popular pages, devices, and general visitor behavior. Do not collect unnecessary personal information.",
-      "Public submissions may include a name, contact detail, title, story, date, place, and uploaded media. These should be reviewed by the admin before publication.",
+      "Visitor profile memories can be saved locally on the visitor device. Any item sent for public gallery review should be checked by the admin before publication.",
       "Visitors can contact the site owner to request correction or removal of personal content.",
     ],
   },
@@ -63,7 +63,7 @@ export const policyPages = {
 export const aboutKapoorpur = [
   "कपूरपुर की यह डिजिटल गैलरी गांव की यादों, त्योहारों, खेतों, स्कूल, मंदिरों और लोगों को संभालने के लिए बनाई गई है।",
   "इसका उद्देश्य है कि गांव के पुराने फोटो, बुजुर्गों की बातें, परिवारों की यादें और नए कार्यक्रम एक जगह सुरक्षित रहें।",
-  "गांववासी मोबाइल से आसानी से फोटो देख सकें, हिंदी में खोज सकें और अपनी यादें एडमिन को भेज सकें।",
+  "गांववासी मोबाइल से आसानी से फोटो देख सकें, हिंदी में खोज सकें, अपनी profile बना सकें और personal memories save कर सकें।",
 ];
 
 export const kapoorpurGuideSections = [

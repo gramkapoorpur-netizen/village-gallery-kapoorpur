@@ -127,7 +127,7 @@ export default function App() {
 
     if (command.action === "submit") {
       setView("submit");
-      return { message: "फोटो या याद भेजने वाला पेज खोल दिया।" };
+      return { message: "आपकी प्रोफाइल और personal memory जोड़ने वाला पेज खोल दिया।" };
     }
 
     if (command.action === "profiles") {
@@ -230,7 +230,7 @@ export default function App() {
                     यादों की गैलरी
                   </button>
                   <button className="icon-button" type="button" onClick={() => setView("submit")}>
-                    अपनी याद भेजें
+                    मेरी प्रोफाइल
                   </button>
                   <button className="icon-button" type="button" onClick={() => setView("circle")}>
                     {lang === "hi" ? "कपूरपुर सर्कल" : "Kapoorpur Circle"}
@@ -257,7 +257,7 @@ export default function App() {
               </div>
               <div>
                 <strong>एडमिन</strong>
-                <span>Gmail login</span>
+                <span>Gallery upload</span>
               </div>
               <div>
                 <strong>PWA</strong>
@@ -377,6 +377,7 @@ export default function App() {
             key={profileQuery}
             items={items}
             initialQuery={profileQuery}
+            onEditProfile={() => setView("submit")}
             onSearchGallery={(term) => {
               setSearch(term);
               setSelectedCategory("all");

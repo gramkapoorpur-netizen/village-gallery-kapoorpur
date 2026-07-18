@@ -1,6 +1,6 @@
 # Village Gallery Kapoorpur
 
-Hindi-first PWA website for Kapoorpur village memories, photo/video gallery, admin Gmail login, public submissions, and community sharing.
+Hindi-first PWA website for Kapoorpur village memories, photo/video gallery, admin Gmail login, visitor profile memories, and community sharing.
 
 ## What is included
 
@@ -12,10 +12,18 @@ Hindi-first PWA website for Kapoorpur village memories, photo/video gallery, adm
 - Free Hindi helper: voice search where supported, text-to-speech, FAQ answers, smart suggestions, and admin Hindi description helper.
 - Firebase Google/Gmail admin login.
 - Firestore gallery records and Firebase Storage media upload hooks.
-- Public submissions for admin approval.
+- Main public gallery photo/video publishing is admin-only.
+- Villagers can create a local profile, save a profile photo, keep personal memories, and optionally send a memory for admin review.
 - Cookie consent, Analytics hook, privacy pages, and community-safe content controls.
 - GitHub Pages workflow.
 - Firebase Firestore and Storage rules.
+
+## Content roles
+
+- Admin: logs in with the configured Gmail and publishes, edits, or deletes public gallery photo/video items.
+- Visitor: can make a profile ID, save profile photo, and keep personal memories on their device.
+- Visitor review path: a visitor memory can be sent to admin review, but it should not appear in the main gallery until admin approves and publishes it.
+- Future monetization: keep original village content, useful pages, privacy/contact/terms pages, and clean navigation. Add ad code only after approval and avoid public ad placeholders before then.
 
 ## Local setup
 

@@ -93,30 +93,89 @@ const knownIds = {
   "सेवा समिति": "@kp-seva",
 };
 
+const MY_PROFILE_KEY = "kapoorpurMyProfile";
+const MY_MEMORIES_KEY = "kapoorpurMyProfileMemories";
+
 function fallbackTrendId(name, index) {
   return `@kp-profile-${String(index + 1).padStart(3, "0")}`;
 }
 
-export function getMyProfile() {
-  try {
-    const saved = JSON.parse(localStorage.getItem("kapoorpurMyProfile") || "null");
-    if (saved?.trendId) return saved;
-  } catch {
-    // Ignore broken local data and create a new local profile.
-  }
-
+function createDefaultProfile() {
   const suffix = Math.random().toString(36).slice(2, 6);
-  const profile = {
+  return {
     trendId: `@kp-${suffix}`,
     nameHi: "आपका प्रोफाइल",
     nameEn: "Your Profile",
     roleHi: "गांव सदस्य",
     areaHi: "कपूरपुर",
     aboutHi: "यह आपका local profile ID है। Firebase profile system जोड़ने पर इसे account से जोड़ा जा सकता है।",
+    contact: "",
+    photoUrl: "",
     tags: ["local", "member"],
   };
-  localStorage.setItem("kapoorpurMyProfile", JSON.stringify(profile));
+}
+
+function readJson(key, fallback) {
+  if (typeof localStorage === "undefined") return fallback;
+  try {
+    return JSON.parse(localStorage.getItem(key) || "null") || fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeJson(key, value) {
+  if (typeof localStorage === "undefined") return;
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+export function getMyProfile() {
+  const saved = readJson(MY_PROFILE_KEY, null);
+  if (saved?.trendId) {
+    return {
+      ...createDefaultProfile(),
+      ...saved,
+      tags: saved.tags || ["local", "member"],
+    };
+  }
+
+  const profile = createDefaultProfile();
+  writeJson(MY_PROFILE_KEY, profile);
   return profile;
+}
+
+export function saveMyProfile(updates) {
+  const profile = {
+    ...getMyProfile(),
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
+  writeJson(MY_PROFILE_KEY, profile);
+  return profile;
+}
+
+export function getMyProfileMemories() {
+  return readJson(MY_MEMORIES_KEY, []);
+}
+
+export function saveMyProfileMemory(memory) {
+  const memories = getMyProfileMemories();
+  const next = [
+    {
+      id: `my-memory-${Date.now()}`,
+      createdAt: new Date().toISOString(),
+      ...memory,
+    },
+    ...memories,
+  ].slice(0, 24);
+  writeJson(MY_MEMORIES_KEY, next);
+  return next;
+}
+
+export function deleteMyProfileMemory(memoryId) {
+  const next = getMyProfileMemories().filter((memory) => memory.id !== memoryId);
+  writeJson(MY_MEMORIES_KEY, next);
+  return next;
 }
 
 export function buildProfiles(items) {

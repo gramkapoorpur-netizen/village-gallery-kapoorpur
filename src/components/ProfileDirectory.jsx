@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { Copy, IdCard, Search, UserRoundSearch } from "lucide-react";
-import { buildProfiles, getMyProfile } from "../data/profiles";
+import { buildProfiles, getMyProfile, getMyProfileMemories } from "../data/profiles";
 
 function normalize(text) {
   return String(text || "").toLowerCase().replace(/\s+/g, "");
 }
 
-export default function ProfileDirectory({ items, initialQuery = "", onSearchGallery }) {
+export default function ProfileDirectory({ items, initialQuery = "", onEditProfile, onSearchGallery }) {
   const profiles = useMemo(() => buildProfiles(items), [items]);
   const [query, setQuery] = useState(initialQuery);
   const [myProfile] = useState(getMyProfile);
+  const [myMemories] = useState(getMyProfileMemories);
   const [copyStatus, setCopyStatus] = useState("");
 
   useEffect(() => {
@@ -17,9 +18,10 @@ export default function ProfileDirectory({ items, initialQuery = "", onSearchGal
   }, [initialQuery]);
 
   const allProfiles = useMemo(() => {
-    const exists = profiles.some((profile) => profile.trendId === myProfile.trendId);
-    return exists ? profiles : [myProfile, ...profiles];
-  }, [myProfile, profiles]);
+    const localProfile = { ...myProfile, sourceCount: myMemories.length };
+    const exists = profiles.some((profile) => profile.trendId === localProfile.trendId);
+    return exists ? profiles : [localProfile, ...profiles];
+  }, [myMemories.length, myProfile, profiles]);
 
   const filtered = useMemo(() => {
     const needle = normalize(query);
@@ -52,12 +54,19 @@ export default function ProfileDirectory({ items, initialQuery = "", onSearchGal
           <p>हर profile को एक आसान trendy ID मिला है। ID बोलकर, लिखकर या copy करके लोग सीधे profile खोज सकते हैं।</p>
         </div>
         <div className="my-id-card">
+          {myProfile.photoUrl ? <img src={myProfile.photoUrl} alt="" /> : null}
           <span>मेरा ID</span>
           <strong>{myProfile.trendId}</strong>
-          <button type="button" className="icon-button primary" onClick={() => copyId(myProfile.trendId)}>
-            <Copy size={18} />
-            Copy
-          </button>
+          <div className="profile-actions">
+            <button type="button" onClick={() => copyId(myProfile.trendId)}>
+              <Copy size={16} />
+              ID copy
+            </button>
+            <button type="button" onClick={onEditProfile}>
+              <IdCard size={16} />
+              प्रोफाइल बनाएं
+            </button>
+          </div>
         </div>
       </div>
 
@@ -75,7 +84,7 @@ export default function ProfileDirectory({ items, initialQuery = "", onSearchGal
         {filtered.map((profile) => (
           <article className="profile-card" key={profile.trendId}>
             <div className="profile-avatar" aria-hidden="true">
-              <IdCard size={24} />
+              {profile.photoUrl ? <img src={profile.photoUrl} alt="" /> : <IdCard size={24} />}
             </div>
             <div>
               <span className="profile-id">{profile.trendId}</span>

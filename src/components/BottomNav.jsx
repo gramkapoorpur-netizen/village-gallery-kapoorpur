@@ -6,7 +6,7 @@ const navItems = [
   { id: "memories", label: "यादें", icon: Sparkles },
   { id: "circle", label: "सर्कल", icon: UsersRound },
   { id: "profiles", label: "ID", icon: IdCard },
-  { id: "submit", label: "भेजें", icon: Send },
+  { id: "submit", label: "मेरी याद", icon: Send },
   { id: "about", label: "गांव", icon: Landmark },
   { id: "admin", label: "एडमिन", icon: ShieldCheck },
 ];
